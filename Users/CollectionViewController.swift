@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 private let reuseIdentifier = "CollectionViewCell"
 
@@ -17,7 +18,7 @@ class CollectionViewController: UICollectionViewController {
     
     var selectedCell: Int = 0
     
-    var currentPage: Int = 0
+    var nextPageToLoad: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +29,12 @@ class CollectionViewController: UICollectionViewController {
                                                  name: NSNotification.Name(rawValue: "PersonsSreverRequestDidFinish"),
                                                  object:nil)
         
-        ServerManager.sharedManager.requestUsers(currentPage)
+        ServerManager.sharedManager.requestUsers(nextPageToLoad)
+        
+        self.title = "Users"
     }
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -57,8 +62,8 @@ class CollectionViewController: UICollectionViewController {
         let currentPersonDictionary = arrayFromServer[indexPath.row] as Person
         cell.name.text = currentPersonDictionary.firstName!.capitalized + " " + currentPersonDictionary.lastName!.capitalized
         cell.job.text = "24 years from FR"
-        if let profilePicture  = currentPersonDictionary.mediumURL {
-            cell.imageView.image = UIImage(named: profilePicture)
+        if let profilePicture = currentPersonDictionary.mediumURL {
+        cell.imageView.sd_setImage(with:URL(string:profilePicture) )
         }
         if self.selectedCell == indexPath.row {
             cell.name.textColor = UIColor.red
@@ -74,13 +79,15 @@ class CollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedCell = indexPath.row
+         performSegue(withIdentifier: "showUserDetails", sender: self)
         collectionView.reloadData()
     }
     
-//    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        currentPage = indexPath.row
-//        ServerManager.sharedManager.requestUsers(currentPage)
-//    }
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row / 10 == 0 && nextPageToLoad > 0 {
+            ServerManager.sharedManager.requestUsers(nextPageToLoad)
+        }
+    }
     
     //MARK: - Server Response
     func didReceiveUsersDataNotification(notification: NSNotification) {
@@ -88,6 +95,7 @@ class CollectionViewController: UICollectionViewController {
             DispatchQueue.main.async() {
                 let users = notification.userInfo?["persons"] as! [Person]
                 self.arrayFromServer = users
+                self.nextPageToLoad = -1
                 self.collectionView?.reloadData()
             }
         }

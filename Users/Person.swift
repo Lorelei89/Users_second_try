@@ -122,7 +122,7 @@ class Person: NSObject {
         self.idValue = idValue
         
         //Picture Obj
-        guard let pictureDictionary = dictionary["id"] as? [String:Any],
+        guard let pictureDictionary = dictionary["picture"] as? [String:Any],
             let largeURL = pictureDictionary["large"] as? String,
             let mediumURL = pictureDictionary["medium"] as? String,
             let thumbnailURL = pictureDictionary["thumbnail"] as? String else {
