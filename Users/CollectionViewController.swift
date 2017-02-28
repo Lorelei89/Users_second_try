@@ -79,10 +79,12 @@ class CollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedCell = indexPath.row
-        let cell = collectionView.cellForItem(at: indexPath);
-        self.performSegue(withIdentifier: "showUserDetails", sender: cell);
-       
         collectionView.reloadData()
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc: TableViewController = storyboard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
+        vc.person = arrayFromServer[self.selectedCell]
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -99,17 +101,6 @@ class CollectionViewController: UICollectionViewController {
                 self.arrayFromServer = users
                 self.nextPageToLoad = -1
                 self.collectionView?.reloadData()
-            }
-        }
-    }
-
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showUserDetails" {
-            if let indexPath = self.collectionView?.indexPath(for: sender as! PersonCollectionViewCell) {
-                let destination = segue.destination as! TableViewController
-                   destination.person = arrayFromServer[indexPath.row]
-                
             }
         }
     }
