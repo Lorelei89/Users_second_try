@@ -91,17 +91,17 @@
         <!--Table View Controller-->
         <scene sceneID="LlX-0w-938">
             <objects>
-                <tableViewController id="bHT-X7-dMd" sceneMemberID="viewController">
+                <tableViewController id="bHT-X7-dMd" customClass="TableViewController" customModule="Users" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8sv-9j-XLY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userHeaderViewIndentifier" rowHeight="100" id="TJf-AX-qQ1" userLabel="Header Table View" customClass="UserHeaderView">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userHeaderViewIndentifier" rowHeight="100" id="TJf-AX-qQ1" userLabel="Header Table View" customClass="PersonHeaderViewCell">
                                 <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TJf-AX-qQ1" id="mck-Mw-BmA">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yzx-Qo-13y" customClass="RoundFullCircleView" customModule="Users" customModuleProvider="target">
@@ -135,12 +135,17 @@
                                         <constraint firstItem="Yzx-Qo-13y" firstAttribute="centerY" secondItem="mck-Mw-BmA" secondAttribute="centerY" id="z7l-ws-Yew"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="personImageView" destination="Yzx-Qo-13y" id="gGP-ng-lpo"/>
+                                    <outlet property="personJob" destination="aYS-4X-zVE" id="8OB-e3-1ah"/>
+                                    <outlet property="personName" destination="wIP-5M-nhd" id="vSn-jF-agP"/>
+                                </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Y2F-T4-Nat" customClass="PersonTableViewCell" customModule="Users" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellIndentifier" id="Y2F-T4-Nat" customClass="PersonTableViewCell" customModule="Users" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="128" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y2F-T4-Nat" id="xOg-Nx-TKo">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="UserInfo" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7l-U9-qug">

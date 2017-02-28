@@ -79,7 +79,9 @@ class CollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedCell = indexPath.row
-         performSegue(withIdentifier: "showUserDetails", sender: self)
+        let cell = collectionView.cellForItem(at: indexPath);
+        self.performSegue(withIdentifier: "showUserDetails", sender: cell);
+       
         collectionView.reloadData()
     }
     
@@ -101,5 +103,15 @@ class CollectionViewController: UICollectionViewController {
         }
     }
 
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showUserDetails" {
+            if let indexPath = self.collectionView?.indexPath(for: sender as! PersonCollectionViewCell) {
+                let destination = segue.destination as! TableViewController
+                   destination.person = arrayFromServer[indexPath.row]
+                
+            }
+        }
+    }
     
 }
