@@ -44,6 +44,7 @@ class CollectionViewController: UICollectionViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
     // MARK: UICollectionViewDataSource
 
