@@ -84,7 +84,7 @@ class CollectionViewController: UICollectionViewController {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let vc: TableViewController = storyboard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
         vc.person = arrayFromServer[self.selectedCell]
-        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
