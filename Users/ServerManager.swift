@@ -32,7 +32,7 @@ class ServerManager: NSObject {
                 {
                     if let httpResponse:HTTPURLResponse = response as? HTTPURLResponse
                     {
-                        if (httpResponse.statusCode >= 200 && httpResponse.statusCode < 300)
+                        if (200...299 ~= httpResponse.statusCode)
                         {
                             //Success
                             requestDidFinishSuccesfully = true
